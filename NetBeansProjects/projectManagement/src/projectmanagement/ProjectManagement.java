@@ -16,5 +16,5 @@ public class ProjectManagement {
         all = (ArrayList<user>)x.read("user.bin");
         System.out.print(all.get(1).getId());
     }
-    
+    //etst
 }
