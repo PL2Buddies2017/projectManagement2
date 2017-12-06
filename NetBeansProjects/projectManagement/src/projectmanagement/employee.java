@@ -1,6 +1,6 @@
 package projectmanagement;
 import java.util.ArrayList;
-public class employee extends user{
+public class employee extends user {
     private ArrayList <penaltie> penalties;
     private ArrayList <vacation> vacations;
     private ArrayList <workTime> workTimes;
@@ -16,6 +16,9 @@ public class employee extends user{
         this.setAddress(address);
         this.setId(id);
         this.setRole(1);
+        this.vacations = new ArrayList<>();
+        this.penalties = new ArrayList<>();
+        this.workTimes = new ArrayList<>();
     }
     
     public employee()
@@ -50,5 +53,10 @@ public class employee extends user{
     public ArrayList<workTime> getAllWorkTime()
     {
         return (ArrayList<workTime>)this.workTimes;
+    }
+    
+    public int getVacationCount()
+    {
+        return (int)this.vacations.size();
     }
 }

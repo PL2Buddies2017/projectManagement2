@@ -2,14 +2,18 @@ package projectmanagement;
 import java.io.Serializable;
 import java.util.*;
 
-public abstract class project implements Serializable{
+public class project implements Serializable{
     private int ProjectID;
     private String ProjectName;
     private Date deadline;
     private ArrayList<task> ProjectTasks;
     private boolean status;
     private float Progress;
+    /* start of constructors */
+    // default constructor
     public project() {}
+    
+    // constructor without Tasks
     public project(int ProjectID , String ProjectName, Date deadline) 
     {
         this.ProjectID = ProjectID;
@@ -17,7 +21,19 @@ public abstract class project implements Serializable{
         this.deadline = deadline;      
         this.status = false;
     }
-     
+    
+    // constructor with tasks
+    public project(int ProjectID , String ProjectName, Date deadline, ArrayList<task> tasks) 
+    {
+        this.ProjectID = ProjectID;
+        this.ProjectName = ProjectName;
+        this.deadline = deadline;
+        this.ProjectTasks = tasks;
+        this.status = false;
+    }
+    /* end of constructors */
+    
+    /* start of methods */
     public int generateId(ArrayList<project> projects)
     {
         if(projects.isEmpty())
@@ -25,99 +41,81 @@ public abstract class project implements Serializable{
         else
             return (projects.get(projects.size()-1).ProjectID + 1);
     }
-    
-    public void setID(int ID) 
-    {
-        this.ProjectID = ID;
-    }
-
-    public void setProjectName(String Pname)
-    {
-        this.ProjectName= Pname;
-    }
-
-    public void setProgress(float prog) 
-    {
-        this.Progress = prog;
-    }
-     
-    public void setDeadline (Date deadline)
-    {
-        this.deadline = deadline;
-    }
-    //check finished or not task status 0 or 1
-    public void setProjectStatus(boolean finshed)
-    {
-        this.status = finshed;
-    }
-   
-    
-    //getter
-    public int getID() 
-    {
-        return this.ProjectID;
-    }
-
-    public String getName() 
-    {
-        return this.ProjectName;
-    }
-
-    public float getProgress() 
-    {
-        return this.Progress;
-    }
-
-    public Date getProjectDeadLine()
-    {
-        return this.deadline;
-    }
-    
-    public boolean getStatus()
-    {
-        return this.status;
-    }
-    
     public boolean commitToFile(ArrayList<project> projects)
     {
         fileManager x = new fileManager();
         boolean y = x.write("project.bin", projects);
         return y;
     }
-
     public ArrayList<project> ReadFromFile()
     {
-        fileManager x = null;
+        fileManager x = new fileManager();
         return (ArrayList<project>) x.read("project.bin");
     }
-
-     
-    public ArrayList<project> getAllProject()
+    public int SearchProject(int id, ArrayList<project> projects)
     {
-        return (ArrayList<project>)this.ReadFromFile();
-    }
-
-   public int SearchProject(int id, ArrayList<project> projects)
-   {
        for (int i = 0; i < projects.size(); i++) 
        {
             if (projects.get(i).ProjectID == id) 
             return i;     
        }
        return -1;
-   }
-   
-  // public ArrayList getAllProjectTasks(){}
-   
-   
-   public float calcProjectProgress ()
-   {
-       float suc = 0;
-       for(task t : this.ProjectTasks)
-       {
-           suc= (t.getStatus())?suc++:suc;
-       }
-       return ((suc/this.ProjectTasks.size())*100);
-   }
+    }
+    public float calcProjectProgress ()
+    {
+        float suc = 0;
+        for(task t : this.ProjectTasks)
+        {
+            suc= (t.getStatus())?suc++:suc;
+        }
+           return ((suc/this.ProjectTasks.size())*100);
+    }
+    /* end of methods */
+    
+    /* start of setter & getter */
+    // ID
+    public void setID(int ID) 
+    {
+        this.ProjectID = ID;
+    }
+    public int getID() 
+    {
+        return this.ProjectID;
+    }
+    // project Name
+    public void setProjectName(String Pname)
+    {
+        this.ProjectName= Pname;
+    }
+    public String getName() 
+    {
+        return this.ProjectName;
+    }
+    
+    // progress
+    public float getProgress() 
+    {
+        return this.calcProjectProgress();
+    }
+    
+    //deadLine
+    public Date getProjectDeadLine()
+    {
+        return this.deadline;
+    }
+    public void setDeadline (Date deadline)
+    {
+        this.deadline = deadline;
+    }
+    
+    // status
+    public boolean getStatus()
+    {
+        return this.status;
+    }
+    public void setProjectStatus(boolean finshed)
+    {   //finished or not task status 0 or 1
+        this.status = finshed;
+    }
+    /* End of setter & getter */
 }
-

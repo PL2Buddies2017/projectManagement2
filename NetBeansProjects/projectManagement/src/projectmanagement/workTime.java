@@ -1,12 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package projectmanagement;
 
 import java.util.*;
-
 
 public class workTime {
     private Date EntryTime;
@@ -15,9 +9,9 @@ public class workTime {
     
 public workTime( Date EntryTime, Date ExitTime,int EmployeeID)
 {
-    this.EntryTime=  EntryTime;
-    this.ExitTime=  ExitTime;
-    this.EmployeeID= EmployeeID;
+    this.EntryTime =  EntryTime;
+    this.ExitTime =  ExitTime;
+    this.EmployeeID = EmployeeID;
 }   
     public void SetEntryTime(Date EntryTime) 
     {

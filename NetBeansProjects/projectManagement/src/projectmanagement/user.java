@@ -1,8 +1,9 @@
 package projectmanagement;
 import java.io.Serializable;
 import java.util.*;
+
 public class user implements Serializable{
-    /* start of */
+    /* start of vars*/
     private String fName;
     private String lName;
     private String email;
@@ -12,7 +13,7 @@ public class user implements Serializable{
     private String address;
     private int id;
     private int role;
-    /* end of */
+    /* end of vars*/
     
     /* start of overloaded constructor */
     public user(String fName, String lName,String email, String password, String phoneNumber, String gender,String address,int id,int role)
@@ -29,10 +30,7 @@ public class user implements Serializable{
     }
     
     /* default constructor */
-    public user()
-    {
-        
-    }
+    public user(){}
     /* end of overloaded constructor */
     
     /* start of methods */
@@ -60,9 +58,91 @@ public class user implements Serializable{
         return 0;
     }
     
-    
+    public ArrayList getUsersByRole(ArrayList<user> allUsers, int role)
+    {
+        
+        if( role >= 1 && role <=4 )
+        {
+            if(role == 1)
+            {
+                ArrayList<employee> employees = new ArrayList<>();
+                for( user person : allUsers )
+                {
+                    if( person.getRole() == 1 )
+                    {
+                        employee x = new employee(person.getFirstName(),person.getLastName(),person.getEmail(), person.getPassword(), person.getphoneNumber(), person.getGender(),person.getAddress(),person.getId());
+                        employees.add(x);
+                    }//end of if
+                }//dnd of for
+                
+                return (ArrayList <employee>)employees;
+            }//end of role 1
+            
+            if(role == 2)
+            {
+                ArrayList<teamLeader> TL = new ArrayList<>();
+                TL = new ArrayList<>();
+                for (user person : allUsers) {
+                    if( person.getRole() == 2 )
+                    {
+                        teamLeader leader = new teamLeader(person.getFirstName(),person.getLastName(),person.getEmail(), person.getPassword(), person.getphoneNumber(), person.getGender(),person.getAddress(),person.getId());
+                        TL.add(leader);
+                    }
+                }
+                return (ArrayList<teamLeader>) TL;
+            }//end of role 2
+            
+            if(role == 3)
+            {
+                ArrayList<projectManager> PM = new ArrayList<>();
+                for( user person : allUsers )
+                {
+                    if( person.getRole() == 3 )
+                    {
+                        projectManager manager = new projectManager(person.getFirstName(),person.getLastName(),person.getEmail(), person.getPassword(), person.getphoneNumber(), person.getGender(),person.getAddress(),person.getId());
+                        PM.add(manager);
+                    }//end of if
+                }//end of for
+                return (ArrayList<projectManager>) PM;
+            }//end of role 3
+            
+            if(role == 4)
+            {
+                ArrayList<admin> admin = new ArrayList<>();
+                for( user person : allUsers )
+                {
+                    if( person.getRole() == 4 )
+                    {
+                        admin ad = new admin(person.getFirstName(),person.getLastName(),person.getEmail(), person.getPassword(), person.getphoneNumber(), person.getGender(),person.getAddress(),person.getId());
+                        admin.add(ad);
+                    }//end of if
+                }//end of for
+                return (ArrayList<admin>) admin;
+            }//end of role 4
+        }
+        return null;
+    }
     /* end of methods */
+    public ArrayList<user> readFromFile()
+    {
+        ArrayList<user> users = new ArrayList<>();
+        fileManager f = new fileManager();
+        users = (ArrayList<user>)f.read("user.bin");
+        if(!users.isEmpty())
+        return (ArrayList<user>)users;
+        else return null;
+    }
     
+    public boolean CommitToFile(ArrayList<user> users)
+    {
+        if(!users.isEmpty())
+        {
+            fileManager f = new fileManager();
+            f.write("user.bin", users);
+            return true;
+        }
+        return false;
+    }
     /* start of getter */
     public String getFirstName()
     {
@@ -95,7 +175,7 @@ public class user implements Serializable{
     }
     public String getAddress()
     {
-        return this.gender;
+        return this.address;
     }
     public int getRole()
     {
@@ -160,4 +240,12 @@ public class user implements Serializable{
         }
     }
     /* end of setter */
+    
+    /* dealing  with file */
+    public boolean commitToFile()
+    {
+        fileManager commit = new fileManager();
+        
+        return true;
+    }
 }
