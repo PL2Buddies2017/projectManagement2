@@ -1,6 +1,5 @@
 package projectmanagement;
 
-import java.io.Serializable;
 import java.util.*;
 import java.text.*;
 
@@ -8,9 +7,9 @@ public class ProjectManagement {
     public static void main(String []args) {
         
         //container m = new container();
-        container x = new container();
-        /*int cho = 0;
-        user master = new user();
+        //container x = new container();
+        int cho = 0;
+        /*user master = new user();
         ArrayList<user> users = new ArrayList<>();
         users = master.readFromFile();
         //System.out.print(users.get(0).getEmail());
@@ -31,9 +30,8 @@ public class ProjectManagement {
         project u1 = new project(z1.generateId(y1),"secondProject",now,tasks);
         y1.add(u1);
         u1.commitToFile(y1);
-        y1 = u1.ReadFromFile();
-        System.out.print(y1.get(0).getName());
-        */
+        System.out.print(y1.get(0).getName());*/
+        container lol = new container();
         /*Scanner input = new Scanner(System.in);
         System.out.println("enter case number");
         cho = input.nextInt();

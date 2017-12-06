@@ -1,9 +1,7 @@
 package projectmanagement;
-
-import java.io.Serializable;
 import java.util.*;
 
-public class vacation implements Serializable
+public class vacation
 {
     private int ID;
     private int EmployeeID;
@@ -54,31 +52,4 @@ public class vacation implements Serializable
     {
         return this.Status;
     }
-    /*
-    public ArrayList<vacation> getVacationByEmployeeId(ArrayList<vacation> vacations, int id)
-    {
-        ArrayList<vacation> empVacation = new ArrayList<>();
-        for(vacation vac : vacations)
-        {
-            if(vac.getEmployeeID() == id)
-            {
-                empVacation.add(vac);
-            }
-        }
-        if(empVacation.size() > 0)
-        return empVacation;
-        else return null;
-    }*/
-    /*
-    public ArrayList<vacation> readFromFile()
-    {
-        fileManager f = new fileManager();
-        return (ArrayList<vacation>)f.read("vacation.bin");
-    }
-    public void commitToFile(ArrayList<vacation> vacations)
-    {
-        fileManager f = new fileManager();
-        f.write("vacation.bin", vacations);
-    }
-    */
 }

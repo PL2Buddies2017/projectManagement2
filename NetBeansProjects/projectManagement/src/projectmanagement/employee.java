@@ -59,4 +59,9 @@ public class employee extends user {
     {
         return (int)this.vacations.size();
     }
+    
+    public int getPenaltieCount()
+    {
+        return (int)this.penalties.size();
+    }
 }
