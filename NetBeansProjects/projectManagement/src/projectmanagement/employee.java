@@ -64,4 +64,18 @@ public class employee extends user {
     {
         return (int)this.penalties.size();
     }
+    
+    public employee searchEmployee(ArrayList<employee> employees, int id)
+    {
+        if(employees.size() > 0)
+        {
+            for(employee emp : employees)
+            {
+                if( emp.getId() == id )
+                    return emp;
+            }
+        }
+        return null;
+    }
 }
+

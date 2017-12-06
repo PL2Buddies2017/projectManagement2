@@ -8,7 +8,6 @@ public class project implements Serializable{
     private Date deadline;
     private ArrayList<task> ProjectTasks;
     private boolean status;
-    private float Progress;
     /* start of constructors */
     // default constructor
     public project() {}
@@ -52,23 +51,23 @@ public class project implements Serializable{
         fileManager x = new fileManager();
         return (ArrayList<project>) x.read("project.bin");
     }
-    public int SearchProject(int id, ArrayList<project> projects)
+    public project SearchProject(ArrayList<project> projects, int id)
     {
-       for (int i = 0; i < projects.size(); i++) 
-       {
-            if (projects.get(i).ProjectID == id) 
-            return i;     
-       }
-       return -1;
+        for (project project : projects) {
+            if (project.ProjectID == id) 
+                return project;
+        }
+       return null;
     }
-    public float calcProjectProgress ()
+    
+    public float getProgress()
     {
         float suc = 0;
         for(task t : this.ProjectTasks)
         {
             suc= (t.getStatus())?suc++:suc;
         }
-           return ((suc/this.ProjectTasks.size())*100);
+        return (float)((suc/this.ProjectTasks.size())*100);
     }
     /* end of methods */
     
@@ -92,12 +91,6 @@ public class project implements Serializable{
         return this.ProjectName;
     }
     
-    // progress
-    public float getProgress() 
-    {
-        return this.calcProjectProgress();
-    }
-    
     //deadLine
     public Date getProjectDeadLine()
     {
@@ -117,5 +110,20 @@ public class project implements Serializable{
     {   //finished or not task status 0 or 1
         this.status = finshed;
     }
+    
+    
     /* End of setter & getter */
+    
+    public project searchProject(ArrayList<project> projects, int id)
+    {
+        if(projects.size() > 0)
+        {
+            for(project project : projects)
+            {
+                if( project.getID() == id )
+                    return project;
+            }
+        }
+        return null;
+    }
 }

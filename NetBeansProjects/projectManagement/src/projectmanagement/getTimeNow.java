@@ -6,7 +6,7 @@ public class getTimeNow {
     public void getTimeNow(int []arr)
     {
         Date x = new Date();
-        SimpleDateFormat y = new SimpleDateFormat("hh dd mm yyyy");
+        SimpleDateFormat y = new SimpleDateFormat("HH DD MM YYYY");
         String []str = y.format(x).split(" ");
         int index = 0;
         for(String s:str)

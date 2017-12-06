@@ -81,7 +81,6 @@ public class user implements Serializable{
             if(role == 2)
             {
                 ArrayList<teamLeader> TL = new ArrayList<>();
-                TL = new ArrayList<>();
                 for (user person : allUsers) {
                     if( person.getRole() == 2 )
                     {
@@ -128,21 +127,9 @@ public class user implements Serializable{
         ArrayList<user> users = new ArrayList<>();
         fileManager f = new fileManager();
         users = (ArrayList<user>)f.read("user.bin");
-        if(!users.isEmpty())
         return (ArrayList<user>)users;
-        else return null;
     }
     
-    public boolean CommitToFile(ArrayList<user> users)
-    {
-        if(!users.isEmpty())
-        {
-            fileManager f = new fileManager();
-            f.write("user.bin", users);
-            return true;
-        }
-        return false;
-    }
     /* start of getter */
     public String getFirstName()
     {
@@ -242,10 +229,37 @@ public class user implements Serializable{
     /* end of setter */
     
     /* dealing  with file */
-    public boolean commitToFile()
+    public void commitToFile(ArrayList<user> users)
     {
         fileManager commit = new fileManager();
-        
-        return true;
+        commit.write("user.bin", users);
+    }
+    
+    public user searchUser(ArrayList<user> users, int id)
+    {
+        if(users.size() > 0)
+        {
+            for(user user : users)
+            {
+                if( user.getId() == id )
+                    return user;
+            }
+        }
+        return null;
+    }
+    public boolean removeUser(ArrayList<user> users, int id)
+    {
+        if(users.size() > 0)
+        {
+            for(int i = 0; i < users.size() ; i++)
+            {
+                if( users.get(i).getId() == id )
+                {
+                    users.remove(i);
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

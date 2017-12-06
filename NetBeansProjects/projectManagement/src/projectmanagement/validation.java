@@ -1,14 +1,10 @@
 package projectmanagement;
 
-
 public class validation {
     public boolean isEmail(String email)
     {
-        
-        for(int i=0;i<email.length();i++)
-        {
-            char ch = email.charAt(i);
-            
-        }
+        return (email.length() > 10 && email.substring(email.length() - 4).equals(".com") && email.contains("@"));
     }
+    
+    
 }

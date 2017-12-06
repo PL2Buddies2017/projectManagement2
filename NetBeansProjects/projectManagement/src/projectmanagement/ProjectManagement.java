@@ -5,6 +5,9 @@ import java.text.*;
 
 public class ProjectManagement {    
     public static void main(String []args) {
+        String str, str_2;
+        str = "Abdelrhman.solieman98@gmail.com";
+        str_2 = str.substring(str.length() - 4);
         
         //container m = new container();
         //container x = new container();
@@ -31,7 +34,7 @@ public class ProjectManagement {
         y1.add(u1);
         u1.commitToFile(y1);
         System.out.print(y1.get(0).getName());*/
-        container lol = new container();
+        //container lol = new container();
         /*Scanner input = new Scanner(System.in);
         System.out.println("enter case number");
         cho = input.nextInt();

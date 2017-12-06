@@ -50,8 +50,6 @@ public class container implements Serializable {
                     this.penalties.add(pen);
                 }
             }
-        }//end of for
-                
+        }//end of for           
     }
-    
 }
