@@ -8,19 +8,22 @@ public class vacation
     private Date vacationTime;
     private boolean Status;
     
-    public vacation(int ID, int EmployeeID, Date Vacation)
+    public vacation(int EmployeeID, Date Vacation)
     {
-        this.ID = ID;
         this.EmployeeID = EmployeeID;
         this.vacationTime = Vacation;
         this.Status = false;
+        fileManager f = new fileManager();
+        int generateId = (((int)f.read("vacId.bin"))+1);
+        this.setId(generateId);
+        f.write("vacId.bin", generateId);
     }   
     
-    public void setID(int ID)
+    public void setId(int ID)
     {
         this.ID = ID;
     }
-    public int getID()
+    public int getId()
     {
          return this.ID;
     }

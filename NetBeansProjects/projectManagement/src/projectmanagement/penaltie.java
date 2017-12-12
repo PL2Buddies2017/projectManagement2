@@ -1,4 +1,3 @@
-
 package projectmanagement;
 
 public class penaltie{
@@ -7,17 +6,20 @@ public class penaltie{
     private int empId;
     private String  Reason;
     
-    public penaltie(int  id ,String  Reason, int empId)
+    public penaltie(int empId,String  Reason)
     {
-        this.id = id;
-        this.Reason = Reason;
         this.empId = empId;
+        this.Reason = Reason;
+        fileManager f = new fileManager();
+        int generateId = (((int)f.read("PenaltieId.bin")) + 1);
+        f.write("PenaltieId.bin", generateId);
+        this.id = generateId;
     }
     public penaltie(){}
     
-    public void setId(int ReasonID)
+    public void setId(int id)
     {
-        this.id = ReasonID;
+        this.id = id;
     }
     
     public void setEmpId(int id)

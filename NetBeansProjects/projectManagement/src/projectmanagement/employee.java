@@ -1,11 +1,13 @@
 package projectmanagement;
+import java.io.Serializable;
 import java.util.ArrayList;
-public class employee extends user {
+
+public class employee extends user implements Serializable{
     private ArrayList <penaltie> penalties;
     private ArrayList <vacation> vacations;
     private ArrayList <workTime> workTimes;
     
-    public employee(String fName, String lName,String email, String password, String phoneNumber, String gender,String address,int id)
+    public employee(String fName, String lName,String email, String password, String phoneNumber, String gender,String address)
     {
         this.setFirstName(fName);
         this.setLastName(lName);
@@ -14,25 +16,39 @@ public class employee extends user {
         this.setPhoneNumber(phoneNumber);
         this.setGender(gender);
         this.setAddress(address);
-        this.setId(id);
+        fileManager f = new fileManager();
+        int generateId = (((int)f.read("generateId.bin"))+1);
+        f.write("generateId.bin", generateId);
+        this.setId(generateId);
         this.setRole(1);
         this.vacations = new ArrayList<>();
         this.penalties = new ArrayList<>();
         this.workTimes = new ArrayList<>();
     }
     
+    public void commit(ArrayList<employee> emp)
+    {
+        fileManager f = new fileManager();
+        f.write("employee.bin", emp);
+    }
+    
+    public ArrayList<employee> read()
+    {
+        return (ArrayList<employee>)this.readFromFile("employee.bin");
+    }
+    
     public employee()
     {
         this.setRole(1);
     }
-    public void addPenaltie(penaltie x)
+    public void addPenaltie(penaltie penal)
     {
-        this.penalties.add(x);
+        this.penalties.add(penal);
     }
     
-    public void addVacation(vacation x)
+    public void addVacation(vacation vac)
     {
-        this.vacations.add(x);
+        this.vacations.add(vac);
     }
     
     public void addWorktime(workTime x)
@@ -76,6 +92,16 @@ public class employee extends user {
             }
         }
         return null;
+    }
+    public void setEntryTime()
+    {
+        workTime newDay = new workTime();
+        newDay.GetExitTime();
+        this.workTimes.add(newDay);
+    }
+    public void setExitTime()
+    {
+        this.workTimes.get(this.workTimes.size()-1).SetExitTime();
     }
 }
 

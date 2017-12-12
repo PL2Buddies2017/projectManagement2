@@ -6,13 +6,11 @@ import java.text.SimpleDateFormat;
 public class workTime {
     private Date EntryTime;
     private Date ExitTime;
-    private int EmployeeID;
-    private long []arr;
-    public workTime( int EmployeeID)
+    private int []arr;
+    public workTime()
     {
         this.EntryTime =  new Date();
-        this.EmployeeID = EmployeeID;
-        this.arr = new long[5];
+        this.arr = new int[2];
     }   
     public void SetEntryTime(Date EntryTime) 
     {
@@ -23,36 +21,22 @@ public class workTime {
     {
         return this.EntryTime ;
     }
-     public void SetExitTime(Date ExitTime) 
+     public void SetExitTime() 
     {
-         ExitTime=new Date();
-        this.ExitTime=ExitTime ;
+        this.ExitTime = new Date();
     }
      public Date GetExitTime() 
     {
         return this.ExitTime ;
     }
-     public void SetEmployeeID(int EmployeeID)
-     {
-         this.EmployeeID=EmployeeID;
-     }
-     public int GetEmployeeID()
-     {
-         return this.EmployeeID;
-     }
+     
      
      public void calcAllhours()
      {
         long dif = this.ExitTime.getTime() - this.EntryTime.getTime();
-        long diffSeconds = dif / 1000 % 60;
-	long diffMinutes = dif / (60 * 1000) % 60;
-	long diffHours = dif / (60 * 60 * 1000) % 24;
-	long diffDays = dif / (24 * 60 * 60 * 1000);
-        
-        this.arr[0]=diffSeconds;
-        this.arr[1]=diffMinutes; 
-        this.arr[2]= diffHours; 
-        this.arr[3]= diffDays;
+        this.arr[0] = (int) (dif / (60 * 60 * 1000));
+        dif -= arr[0] * 60 * 60 * 1000;
+	this.arr[1] = (int)(dif / (60 * 1000));
      }
      
      public int getMonth()
@@ -64,12 +48,11 @@ public class workTime {
      
      public long getWorkHours(ArrayList<workTime> wTime, int month)
      {
-         long allHours = 0;
-         long min = 0;
+         int allHours = 0;
+         int min = 0;
          if(wTime.size() > 0)
          {
-             Date now = new Date();
-             wTime.get( wTime.size() - 1).SetExitTime(now);
+             wTime.get( wTime.size() - 1).SetExitTime();
              for(workTime work : wTime)
              {
                  if(work.getMonth() == month)
@@ -91,10 +74,10 @@ public class workTime {
      
      public long getWorkHour()
      {
-         return this.arr[2];
+         return this.arr[0];
      }
      public long getMin()
      {
          return this.arr[1];
      }
-}
+}     

@@ -13,43 +13,59 @@ public class project implements Serializable{
     public project() {}
     
     // constructor without Tasks
-    public project(int ProjectID , String ProjectName, Date deadline) 
+    public project(String ProjectName, Date deadline) 
     {
-        this.ProjectID = ProjectID;
+        fileManager f = new fileManager();
+        int generateId = (((int)f.read("projectId.bin"))+1);
+        f.write("projectId.bin", generateId);
+        this.ProjectID = generateId;
         this.ProjectName = ProjectName;
-        this.deadline = deadline;      
+        this.deadline = deadline;
         this.status = false;
+        this.ProjectTasks = new ArrayList<>();
     }
     
     // constructor with tasks
     public project(int ProjectID , String ProjectName, Date deadline, ArrayList<task> tasks) 
     {
-        this.ProjectID = ProjectID;
+        fileManager f = new fileManager();
+        int generateId = (((int)f.read("projectId.bin"))+1);
+        f.write("projectId.bin", generateId);
+        this.ProjectID = generateId;
         this.ProjectName = ProjectName;
         this.deadline = deadline;
+        this.ProjectTasks = new ArrayList<>();
         this.ProjectTasks = tasks;
         this.status = false;
+    }
+    
+    public project(int ProjectID , String ProjectName, Date deadline, task task) 
+    {
+        fileManager f = new fileManager();
+        int generateId = (((int)f.read("projectId.bin"))+1);
+        f.write("projectId.bin", generateId);
+        this.ProjectID = generateId;
+        this.ProjectName = ProjectName;
+        this.deadline = deadline;
+        this.ProjectTasks = new ArrayList<>();
+        this.ProjectTasks.add(task);
+        this.status = false;
+        
     }
     /* end of constructors */
     
     /* start of methods */
-    public int generateId(ArrayList<project> projects)
-    {
-        if(projects.isEmpty())
-            return 1;
-        else
-            return (projects.get(projects.size()-1).ProjectID + 1);
-    }
     public boolean commitToFile(ArrayList<project> projects)
     {
         fileManager x = new fileManager();
         boolean y = x.write("project.bin", projects);
         return y;
     }
+    
     public ArrayList<project> ReadFromFile()
     {
-        fileManager x = new fileManager();
-        return (ArrayList<project>) x.read("project.bin");
+        fileManager f = new fileManager();
+        return (ArrayList<project>)f.read("project.bin");
     }
     public project SearchProject(ArrayList<project> projects, int id)
     {
@@ -110,8 +126,10 @@ public class project implements Serializable{
     {   //finished or not task status 0 or 1
         this.status = finshed;
     }
-    
-    
+    public void addTask(task newTask)
+    {
+        this.ProjectTasks.add(newTask);
+    }
     /* End of setter & getter */
     
     public project searchProject(ArrayList<project> projects, int id)
